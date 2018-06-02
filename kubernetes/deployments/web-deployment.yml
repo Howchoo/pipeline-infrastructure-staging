@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: web-deployment
 spec:
-  replicas: 6
+  replicas: 1
   selector:
     matchLabels:
       app: web
@@ -16,27 +16,37 @@ spec:
     spec:
       containers:
         - name: web
-          image: howchoo/web:kubernetes.03
+          image: howchoo/web
           ports:
             - containerPort: 80
           env:
             - name: HOWCHOO_HOST
-              value: "howchoo.com"
+              value: "staging.howchoo.com"
             - name: HOWCHOO_DB_HOST
-              value: "pg-master-101.cmn1bkeh6ucx.us-east-1.rds.amazonaws.com"
+              value: "127.0.0.1"
             - name: HOWCHOO_REDIS_HOST
               value: "redis"
             - name: HOWCHOO_DB_NAME
               value: "howchoo"
             - name: HOWCHOO_ENV
-              value: "prod"
-            - name: DEPLOY_VERSION
-              value: "1"
+              value: "staging"
           volumeMounts:
             - name: database
               mountPath: "/secrets/database"
               readOnly: true
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          command: ["/cloud_sql_proxy",
+                    "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
       volumes:
         - name: database
           secret:
-            secretName: database
+            secretName: cloudsql-db-credentials
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
