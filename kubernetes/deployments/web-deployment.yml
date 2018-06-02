@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: web
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: web
+        tier: frontend
+    spec:
+      containers:
+        - name: web
+          image: howchoo/web:kubernetes.03
+          ports:
+            - containerPort: 80
+          env:
+            - name: HOWCHOO_HOST
+              value: "howchoo.com"
+            - name: HOWCHOO_DB_HOST
+              value: "pg-master-101.cmn1bkeh6ucx.us-east-1.rds.amazonaws.com"
+            - name: HOWCHOO_REDIS_HOST
+              value: "redis"
+            - name: HOWCHOO_DB_NAME
+              value: "howchoo"
+            - name: HOWCHOO_ENV
+              value: "prod"
+            - name: DEPLOY_VERSION
+              value: "1"
+          volumeMounts:
+            - name: database
+              mountPath: "/secrets/database"
+              readOnly: true
+      volumes:
+        - name: database
+          secret:
+            secretName: database
