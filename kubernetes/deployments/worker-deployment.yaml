@@ -16,7 +16,7 @@ spec:
         tier: backend
     spec:
       containers:
-      - image: gcr.io/howchoo-161906/web:8cba44658db729daa7c2f1bfdde380cd86fc569a
+      - image: gcr.io/howchoo-161906/web:07abd3a20211add4a9d96099e6a63a4b29bf34f9
         name: web
       - command:
         - ./howchoo/bin/start_celery.sh
