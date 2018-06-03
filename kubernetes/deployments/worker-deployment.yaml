@@ -16,9 +16,7 @@ spec:
         tier: backend
     spec:
       containers:
-      - image: howchoo/web
-        name: web
-        command:
+      - command:
         - ./howchoo/bin/start_celery.sh
         env:
         - name: HOWCHOO_HOST
@@ -31,6 +29,8 @@ spec:
           value: howchoo
         - name: HOWCHOO_ENV
           value: staging
+        image: gcr.io/howchoo-161906/web:bc0343d3cfe6f136e17f78b0e3d535eb4988d759
+        name: web
         volumeMounts:
         - mountPath: /secrets/database
           name: database
