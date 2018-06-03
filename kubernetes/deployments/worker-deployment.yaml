@@ -16,9 +16,9 @@ spec:
         tier: backend
     spec:
       containers:
-      - image: gcr.io/howchoo-161906/web:07abd3a20211add4a9d96099e6a63a4b29bf34f9
+      - image: howchoo/web
         name: web
-      - command:
+        command:
         - ./howchoo/bin/start_celery.sh
         env:
         - name: HOWCHOO_HOST
@@ -31,8 +31,6 @@ spec:
           value: howchoo
         - name: HOWCHOO_ENV
           value: staging
-        image: howchoo/web:kubernetes.03
-        name: worker
         volumeMounts:
         - mountPath: /secrets/database
           name: database
