@@ -29,7 +29,7 @@ spec:
           value: howchoo
         - name: HOWCHOO_ENV
           value: staging
-        image: gcr.io/howchoo-161906/web:f6b156599915d6fb683bb67c731bf0f20cf04a47
+        image: gcr.io/howchoo-161906/web:146eb153a8a761e153346f72611876677350d3d8
         name: web
         volumeMounts:
         - mountPath: /secrets/database
