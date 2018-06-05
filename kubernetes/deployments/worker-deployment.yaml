@@ -37,7 +37,7 @@ spec:
           readOnly: true
       - command:
         - /cloud_sql_proxy
-        - -instances=<INSTANCE_CONNECTION_NAME>=tcp:5432
+        - -instances=howchoo-161906:us-central1:howchoo-db-staging=tcp:5432
         - -credential_file=/secrets/cloudsql/credentials.json
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         name: cloudsql-proxy
