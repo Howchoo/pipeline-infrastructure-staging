@@ -20,11 +20,11 @@ spec:
         - name: HOWCHOO_HOST
           value: staging.howchoo.com
         - name: HOWCHOO_DB_HOST
-          value: 127.0.0.1
+          value: db
         - name: HOWCHOO_REDIS_HOST
           value: redis
         - name: HOWCHOO_DB_NAME
-          value: postgres
+          value: howchoo
         - name: HOWCHOO_ENV
           value: staging
         image: gcr.io/howchoo-161906/web:146eb153a8a761e153346f72611876677350d3d8
@@ -35,20 +35,7 @@ spec:
         - mountPath: /secrets/database
           name: database
           readOnly: true
-      - command:
-        - /cloud_sql_proxy
-        - -instances=howchoo-161906:us-central1:howchoo-db-staging=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: cloudsql-proxy
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: cloudsql-instance-credentials
-          readOnly: true
       volumes:
       - name: database
         secret:
-          secretName: cloudsql-db-credentials
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
+          secretName: database

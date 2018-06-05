@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+      role: master
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - name: db
+        image: postgres
+        ports:
+        - containerPort: 5432
