@@ -25,10 +25,10 @@ spec:
           - name: data
             mountPath: /var/lib/postgresql/data
             subPath: data
-  volumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: data
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
