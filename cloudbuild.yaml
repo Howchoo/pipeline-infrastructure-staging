@@ -39,3 +39,4 @@ steps:
     volumes:
       - name: 'kube'
         path: /kube
+timeout: 300s
