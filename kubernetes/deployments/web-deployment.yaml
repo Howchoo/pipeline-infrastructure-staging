@@ -27,7 +27,7 @@ spec:
           value: postgres
         - name: HOWCHOO_ENV
           value: staging
-        image: gcr.io/howchoo-161906/web:c4424c4b861556598fab6bd76383b8ed977eeb65
+        image: gcr.io/howchoo-161906/web:dd8cc0bad879e4d75ab21c8a20d892f48fa689ad
         name: web
         ports:
         - containerPort: 80
