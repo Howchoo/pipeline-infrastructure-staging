@@ -29,7 +29,7 @@ spec:
           value: postgres
         - name: HOWCHOO_ENV
           value: staging
-        image: gcr.io/howchoo-161906/web:ba6121d3273d64177ac22d99fdf24d356ad39f8d
+        image: gcr.io/howchoo-161906/web:5ade3990f7537f5364ad68f51d79ab5e0e937411
         name: web
         volumeMounts:
         - mountPath: /secrets/database
